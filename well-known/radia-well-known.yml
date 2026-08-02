@@ -1,0 +1,148 @@
+generated: '2026-08-02'
+method: probed
+source: live probes of /.well-known/ and contract-discovery paths on Radia hosts (2026-08-02)
+result: >-
+  none - Radia publishes no /.well-known/ document and no machine-readable API contract
+  on any host it controls. radia.com is a Next.js marketing site rendered from a Strapi
+  headless CMS; the Strapi backend is reachable at radia.com/strapi but its content
+  API is permission-locked and undocumented, and it is not offered as a product.
+hosts:
+- host: https://radia.com
+  platform: Next.js front end backed by a self-hosted Strapi CMS
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /openapi.json
+    status: 404
+  - path: /openapi.yaml
+    status: 404
+  - path: /swagger.json
+    status: 404
+  - path: /api-docs
+    status: 404
+  - path: /api
+    status: 404
+  - path: /api/openapi.json
+    status: 404
+  - path: /graphql
+    status: 404
+  - path: /mcp
+    status: 404
+  - path: /feed
+    status: 404
+  - path: /rss.xml
+    status: 404
+  - path: /media/rss.xml
+    status: 500
+    note: >-
+      Next.js server error rather than a feed; the /media press room has no RSS or
+      Atom feed, so no BlogRSS pointer is wired.
+  - path: /robots.txt
+    status: 200
+    note: >-
+      Three lines - "User-agent: * / Allow: /", a Host directive and a Sitemap
+      directive. No AI-crawler block list; every crawler is allowed everywhere.
+  - path: /sitemap.xml
+    status: 200
+    note: >-
+      Valid XML but the <loc> values are malformed - every URL is emitted as
+      "https:///" or "https:////about", i.e. the origin is missing from the template.
+      Recorded as an observed defect on Radia's side, not a fetch problem.
+  - path: /site.webmanifest
+    status: 200
+    note: PWA manifest (name "Radia", two android-chrome icons). Not an API artifact.
+- host: https://www.radia.com
+  note: >-
+    resolves (167.172.131.52) and returns identical results to the apex host on every
+    path above.
+strapi_backend:
+  observed: true
+  base: https://radia.com/strapi
+  evidence:
+  - path: /strapi/
+    status: 200
+    note: default "Welcome to your Strapi app" landing page
+  - path: /strapi/admin
+    status: 200
+    note: Strapi admin single-page app, served with meta robots=noindex
+  - path: /strapi/api/global
+    status: 403
+    note: >-
+      Forbidden with a Strapi JSON error body - the collection exists but the public
+      role has no find permission. This is the strongest evidence a content API is
+      present.
+  - path: /strapi/api
+    status: 404
+  - path: /strapi/api/{articles,pages,posts,media-items,press-releases,partners,leaders,team-members,navigation,home,homepage}
+    status: 404
+    note: none of these collection names exist
+  - path: /strapi/documentation
+    status: 404
+  - path: /strapi/documentation/v1.0.0/full_documentation.json
+    status: 404
+    note: >-
+      the Strapi Documentation plugin (which would emit an OpenAPI document) is not
+      installed, so no generated OpenAPI is available
+  - path: /strapi/graphql
+    status: 404
+    note: the Strapi GraphQL plugin is not installed
+  assessment: >-
+    This is the CMS that renders radia.com, not a published API product. It is
+    undocumented, has no developer portal, no authentication documentation, no terms
+    covering third-party use, and its collections return 403/404 anonymously. It is
+    recorded here as an observed internal surface only. No apis[] entry, no OpenAPI
+    and no MCP artifact is derived from it - doing so would fabricate a product Radia
+    does not offer.
+hosts_that_do_not_resolve:
+- api.radia.com
+- docs.radia.com
+- developer.radia.com
+- developers.radia.com
+- dev.radia.com
+- app.radia.com
+- portal.radia.com
+- mcp.radia.com
+- status.radia.com
+- trust.radia.com
+- security.radia.com
+- careers.radia.com
+- jobs.radia.com
+- cdn.radia.com
+- strapi.radia.com
+contract_discovery:
+  openapi: >-
+    not found - probed on the apex host, the www host and the Strapi backend root.
+    No candidate returned a parseable OpenAPI or Swagger document.
+  graphql: >-
+    not found - /graphql 404s on the Next.js front end and the Strapi GraphQL plugin
+    is not installed, so there is nothing to introspect.
+  mcp: not found - no /mcp endpoint, no mcp. subdomain, no published MCP server
+  a2a_agent_card: >-
+    not found - /.well-known/agent-card.json and the legacy /.well-known/agent.json
+    both return 404 on radia.com and www.radia.com. No a2a/ artifact is written.
+  asyncapi: >-
+    not applicable - no event, webhook or streaming surface is published, and there
+    is no API to emit events from.
+  conclusion: >-
+    Radia publishes no machine-readable API contract. This is a completed negative
+    result, not an unfinished probe.
+x-evidence:
+  fetched: '2026-08-02'
+  method: curl GET with redirect-following, 12-20s timeout, apex and www hosts
+  dns_method: dig +short A/CNAME on candidate API, docs and infrastructure subdomains

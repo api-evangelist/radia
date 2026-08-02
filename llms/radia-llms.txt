@@ -1,0 +1,58 @@
+# Radia
+
+> Radia is a dual-use aerospace company founded in 2016 by Mark Lundstrom and headquartered in Boulder, Colorado, with a second operating base in Italy. It is building WindRunner, an aircraft it describes as the largest ever built — roughly ten times the cargo volume of a Boeing 777, able to land on semi-prepared packed-dirt or gravel strips, and sized to carry onshore wind turbine blades of up to about 105 metres directly to a wind farm, a forward operating site or a disaster zone.
+
+Radia is an aircraft manufacturer and air-cargo logistics company, not a software vendor. As of 2026-08-02 it publishes **no public API, no developer portal, no API documentation, no SDK and no machine-readable API contract**. Do not assume or invent an `api.radia.com`, `docs.radia.com` or `developer.radia.com` endpoint — none of those hosts resolve (NXDOMAIN).
+
+One caveat for crawlers and agents: `radia.com/strapi` is the self-hosted **Strapi headless CMS that renders Radia's own marketing site**. Its admin panel responds at `/strapi/admin` and one content collection (`/strapi/api/global`) returns `403 Forbidden`, which shows a content API exists behind permissions. It is **not a product, is undocumented, has no published terms of use for third parties, and every collection is permission-locked anonymously**. Treat it as internal infrastructure, not an integration surface.
+
+## Company
+
+- [Radia](https://radia.com/): company website
+- [About](https://radia.com/about): founding story, leadership, supplier ecosystem
+- [Media](https://radia.com/media): press releases and news (no RSS or Atom feed is published)
+- [Contact](https://radia.com/contact): contact form; careers enquiries go to careers@radia.com
+
+## Product — WindRunner
+
+- [WindRunner](https://radia.com/windrunner): the aircraft
+- [Defense](https://radia.com/defense): outsized-volume strategic airlift
+- [Commercial](https://radia.com/commercial): supply-chain logistics for cargo that cannot move by road
+- [Wind energy](https://radia.com/wind-energy): delivering very large blades that make low-wind onshore sites economic
+- [Applications](https://radia.com/applications): the full mission set
+
+Design posture: Radia describes WindRunner as a deliberately low-novelty airframe assembled from existing certified components, chosen to shorten the certification path. It targets first certification flights around 2030 and commercial operation in the early 2030s, pending FAA type certification. See `conformance/radia-conformance.yml` in this repo for the regulatory status.
+
+## People
+
+- [Mark Lundstrom](https://www.linkedin.com/in/mark-lundstrom-aa848): founder and CEO, MIT-trained aerospace engineer
+- [Giuseppe Giordo](https://www.linkedin.com/in/giuseppe-giordo-89aa15100/): President and CEO of Radia's Italian operations
+- [Mel Johnson](https://www.linkedin.com/in/mel-johnson-a5b8059b/): regulatory affairs, previously a career at the FAA on certification projects
+- Additional leadership profiles are linked from [radia.com/about](https://radia.com/about)
+
+## Partners and suppliers
+
+More than twenty suppliers and technology partners have been announced, including Aernnova, Leonardo, AFuzion, Atitech, Latecoere, Stirling Dynamics, Collier Aerospace (structural sizing software) and Maximus Air (air cargo operations).
+
+## Investment
+
+- Approximately USD 128 million raised; investors include ConocoPhillips, Lauder Partners, LS Power Development and HCVC
+- [Forge Global](https://forgeglobal.com/radia_stock/): secondary-market listing for private shares
+- [Crunchbase](https://www.crunchbase.com/organization/radia), [PitchBook](https://pitchbook.com/profiles/company/433604-44): company and funding profiles
+
+## Social
+
+- [LinkedIn](https://www.linkedin.com/company/radiainc)
+- [X](https://x.com/RadiaWindRunner)
+
+## Code and packages
+
+- No GitHub organization can be attributed to Radia. `github.com/radia`, `github.com/radiainc` and `github.com/radiawindrunner` do not exist; `github.com/Radia-Inc` exists but is empty, undescribed and unlinked to this company.
+- No packages are published on npm, PyPI, RubyGems, crates.io, Packagist or NuGet. The PyPI project named `radia` is the ESRF synchrotron magnetostatics code by Pascal Elleaume and is unrelated. See `packages/radia-packages.yml`.
+
+## What this repo contains
+
+- `well-known/radia-well-known.yml`: the full `/.well-known/` and contract-discovery probe record, including the Strapi backend findings, recorded with status codes
+- `packages/radia-packages.yml`: registry search record (no first-party packages)
+- `conformance/radia-conformance.yml`: FAA/EASA aircraft certification status; API standards recorded as not-applicable
+- `security/radia-domain-security.yml`: TLS/HSTS/DNSSEC/CAA/SPF/DMARC probe of radia.com

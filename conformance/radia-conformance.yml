@@ -1,0 +1,104 @@
+generated: '2026-08-02'
+method: searched
+source: Radia public statements and aviation trade press (2026-08-02 web search)
+scope: >-
+  Radia publishes no API, so there are no API or cross-cutting technical standards to
+  assert. What Radia is actually measured against is civil aviation type certification
+  for the WindRunner airframe. That regime is recorded here as applicable with its
+  status stated honestly as in-progress rather than achieved. The API/protocol block
+  is recorded as not-applicable rather than false, so this file is never mistaken for
+  a compliance posture the company does not claim.
+regulatory_regime:
+- id: faa-part-25-type-certification
+  name: FAA type certification for a transport-category aircraft (14 CFR Part 25)
+  conforms: false
+  status: in-progress
+  evidence: >-
+    Radia states it is collaborating with the FAA on a multi-level basis through
+    WindRunner development, and employs a VP of regulatory affairs (Mel Johnson) whose
+    career was spent on FAA certification projects. As of mid-2026 the company targets
+    first certification flights in 2030 and commercial operation in 2031. No type
+    certificate has been issued, and no aircraft of WindRunner's size or with its
+    semi-prepared-strip landing capability has previously been certified.
+  note: >-
+    conforms:false records that certification has not been granted, not that a check
+    was failed. Re-probe on the next pass.
+- id: easa-type-certification
+  name: EASA type certification (validation pathway alongside the FAA)
+  conforms: false
+  status: anticipated
+  evidence: >-
+    Radia operates a second base in Italy and its supplier ecosystem is heavily
+    European (Aernnova, Leonardo, Atitech, Latecoere, Stirling Dynamics). Trade
+    coverage of its Collier Aerospace tool selection describes the intent to shorten
+    both FAA and EASA certification. No EASA application or validation milestone has
+    been published.
+- id: do-178c-do-254
+  name: RTCA DO-178C / DO-254 airborne software and hardware assurance
+  conforms: false
+  applicable: true
+  status: unknown
+  evidence: >-
+    Radia has partnered with AFuzion, a firm whose practice is DO-178C/DO-254
+    certification consulting, which implies these standards are in scope for the
+    program. Radia itself has published no conformance statement, so this is recorded
+    as applicable-but-unevidenced rather than conforming.
+api_standards:
+- id: openapi
+  conforms: false
+  applicable: false
+  evidence: no public API contract published (see well-known/radia-well-known.yml)
+- id: oauth2
+  conforms: false
+  applicable: false
+- id: openid-connect
+  conforms: false
+  applicable: false
+- id: rfc9457-problem-details
+  conforms: false
+  applicable: false
+- id: asyncapi
+  conforms: false
+  applicable: false
+- id: graphql
+  conforms: false
+  applicable: false
+  evidence: >-
+    /graphql 404s on the Next.js front end and the Strapi GraphQL plugin is not
+    installed on the CMS backend
+- id: mcp
+  conforms: false
+  applicable: false
+- id: a2a
+  conforms: false
+  applicable: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json both 404 on radia.com
+    and www.radia.com
+- id: rfc9116-security-txt
+  conforms: false
+  applicable: true
+  evidence: /.well-known/security.txt returns 404 on radia.com and www.radia.com
+information_security_compliance:
+  found: false
+  note: >-
+    No trust center, SOC 2, ISO 27001, CMMC or equivalent information-security
+    certification page was found by probe-security-programs.py (vdp=none trust=none)
+    or by search; trust.radia.com and security.radia.com do not resolve. No
+    `Compliance` and no `TrustCenter` pointer is wired in apis.yml - the aviation
+    certification regime above is an airworthiness regime, not a published infosec
+    compliance program, so it does not earn one either.
+supplier_governance:
+  found: true
+  document: https://radia.com/strapi/uploads/Supplier_Code_of_Conduct_Nov_2024_c5e004e354.pdf
+  status: 200
+  note: >-
+    Radia publishes a Supplier Code of Conduct (November 2024). This is a procurement
+    and business-ethics document, not a technical or security compliance attestation.
+    Wired as `CodeOfConduct`, deliberately not as `Compliance`.
+domain_security_observed:
+  source: security/radia-domain-security.yml
+  summary: >-
+    radia.com serves TLS 1.3 with a certificate valid to 2026-10-31, but publishes NO
+    HSTS header, NO DNSSEC and NO CAA record. SPF and DMARC are present, with the
+    DMARC policy at p=none (monitor only, no enforcement).

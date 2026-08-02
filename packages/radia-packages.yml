@@ -1,0 +1,61 @@
+generated: '2026-08-02'
+method: searched
+source: registry searches of npm, PyPI, GitHub, RubyGems, crates.io, Packagist, NuGet (2026-08-02)
+result: none
+notes: >-
+  Radia publishes no client SDK, because it publishes no public API. It is an aircraft
+  manufacturer and air-cargo operator, not a software vendor. Every hit on the string
+  "radia" or "windrunner" in a public registry belongs to an unrelated author. No
+  `SDKs` pointer is wired in apis.yml and the sdk_count checks are correctly left
+  unearned.
+packages: []
+registries_checked:
+- registry: npm
+  query: radia / windrunner
+  result: >-
+    10 fuzzy matches, none first-party - manadi-scior-radia, @kaloka-radia-nanda/*,
+    @radia/lotide (a Lighthouse Labs student exercise) and a set of unrelated CLI
+    utilities. No @radia or @radiainc organization scope exists.
+- registry: pypi
+  query: radia
+  result: >-
+    exists (200) but unrelated - "Radia 3D Magnetostatics with NGSolve Integration",
+    authored by Pascal Elleaume, the ESRF synchrotron-radiation magnet modelling code.
+    Nothing to do with Radia Inc.
+- registry: pypi
+  query: windrunner
+  result: >-
+    exists (200) but unrelated - "Run like the wind", authored by Foad Green at
+    github.com/foadgr/windrunner.
+- registry: rubygems
+  query: radia
+  result: no first-party gem
+- registry: crates.io
+  query: radia
+  result: no first-party crate
+- registry: packagist
+  query: radia
+  result: no first-party package
+- registry: nuget
+  query: radia
+  result: no first-party package
+- registry: github
+  query: orgs/radia, orgs/radiainc, orgs/radiawindrunner
+  result: 404 - none of these organizations exist
+- registry: github
+  query: orgs/radia-inc
+  result: >-
+    an organization named "Radia-Inc" exists (id 128074214, created 2023-03-16, last
+    updated 2023-05-17) with 0 public repositories, no description, no website, no
+    public members and no verification. There is no evidence linking it to Radia Inc
+    of Boulder, Colorado, and nothing published in it. Deliberately NOT wired as a
+    `GitHubOrganization` pointer - an unattributable empty org is not evidence of a
+    GitHub presence.
+sdk_documentation_pages_checked:
+- url: https://radia.com/
+  status: 200
+  result: marketing site; no developer or SDK section
+- url: https://docs.radia.com/
+  status: DNS NXDOMAIN
+- url: https://developer.radia.com/
+  status: DNS NXDOMAIN
