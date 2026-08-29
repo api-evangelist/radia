@@ -23,6 +23,17 @@ description: 'Radia is a dual-use aerospace company founded in 2016 by MIT-train
   public surface is the Strapi headless-CMS backend at radia.com/strapi that renders
   its own marketing site, whose content API is permission-locked and undocumented.'
 url: https://raw.githubusercontent.com/api-evangelist/radia/refs/heads/main/apis.yml
+deliveryModel:
+  model: library
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Library · distributed through package registries, no callable service
+  confidence: low
+  source:
+  - none
+  generated: '2026-08-28'
+  method: derived
 image: https://radia.com/strapi/uploads/About_radia_og2_6b94798e36.jpg
 x-type: company
 x-source: harvest:secondary-market
